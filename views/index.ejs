@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ShayariCodecs</title>
+    <link rel="stylesheet" href="../stylesheets/style.css" />
+  </head>
+  <body>
+    <footer>
+      <h1>Welcome to Shayari Codecs</h1>
+    </footer>
+    <div class="blogbox">
+      <% blogs.forEach((value)=>{ %>
+      <div class="blog">
+        <div style="background-color: aqua" class="contentbox">
+          TITLE : <%= value.title %>
+        </div>
+        <div style="background-color: burlywood" class="contentbox">
+          DESCRIPTION : <%= value.desc %>
+        </div>
+        <div class="contentbox">
+          <a href="/<%=value.id%>">Click to show more</a>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </body>
+</html>
