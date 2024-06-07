@@ -26,8 +26,23 @@ router.post("/registeruser", async (req, res) => {
 });
 
 router.get("/login", (req, res) => {
-  res.render("login");
+  const token = req.cookies["token"];
+  if (token) {
+    res.redirect("/blog");
+  } else {
+    res.render("login");
+  }
 });
+
+router.post("/logout", (req, res) => {
+  res.clearCookie("token");
+  res.send("Cookie Deleted");
+});
+
+router.get("/blog", (req, res) => {
+  res.send("BLOG PAGE");
+});
+
 router.post(
   "/loginuser",
   asynchandler(async (req, res) => {
@@ -47,8 +62,7 @@ router.post(
           },
           process.env.SECRET_TOKEN
         );
-        res.cookie("token",accesstoken);
-        console.log(req.cookies["token"]);
+        res.cookie("token", accesstoken);
         res.json({ accesstoken });
       } else {
         throw new Error("Invalid Credentials");

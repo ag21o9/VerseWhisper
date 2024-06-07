@@ -1,25 +1,28 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-
-
-function issigned(req,res,next){
-    
+function issigned(req, res, next) {
+  next();
 }
 
-router.get('/',(req,res)=>{
-    res.render("index",{blogs:[{title:"NamoBharat",desc:"This is New India",id:"alpha420"}]})
-})
+router.get("/", (req, res) => {
 
-router.get('/:id',(req,res)=>{
-    console.log(req.params.id);
-})
+    // backedn
 
-router.get('/createdb',issigned,(req,res)=>{
-    res.send("hello world");
-})
-router.post('/create',issigned,(req,res)=>{
+  res.render("index", {
+    blogs: [{ title: "NamoBharat", desc: "This is New India", id: "alpha420" }],
+  });
+});
 
-})
+router.get("/getblog/:id", (req, res) => {
+  console.log(req.params.id);
+});
+
+router.get("/createdb", issigned, (req, res) => {
+  res.render("blog");
+});
+router.post("/create", issigned, (req, res) => {
+    
+});
 
 module.exports = router;

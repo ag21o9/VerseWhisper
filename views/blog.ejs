@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../stylesheets/style2.css" />
+  </head>
+  <body>
+    <div class="container" style="display: flex; margin-top: 180px;">
+      <section id="contact-form">
+        <h2>Write Your Shayari</h2>
+        <form id="contact" name="shayari" accept-charset="utf-8" method="post" action="/create">
+          <label
+            ><span>Name</span><input name="name" type="text" placeholder="Name"
+          /></label>
+          <label
+            ><span>Topic</span
+            ><input name="topic" type="text" placeholder="Topic"
+          /></label>
+          <label
+            ><span>Shayari</span
+            ><textarea name="shayari" placeholder="Shayari"></textarea>
+          </label>
+          <input name="submit" type="submit" value="Send" />
+        </form>
+        <aside>
+          <p>
+            Just hit Send on an empty form to see the invalid input animation
+          </p>
+          <p>
+            Fill in the form fields to see the success animation (no real
+            validation, any random input will do)
+          </p>
+        </aside>
+      </section>
+    </div>
+    <script>
+      var form = $("#contact"),
+        submit = form.find('[name="submit"]');
+
+      form.on("submit", function (e) {
+        e.preventDefault();
+
+        // avoid spamming buttons
+        if (submit.attr("value") !== "Send") return;
+
+        var valid = true;
+        form
+          .find("input, textarea")
+          .removeClass("invalid")
+          .each(function () {
+            if (!this.value) {
+              $(this).addClass("invalid");
+              valid = false;
+            }
+          });
+
+        if (!valid) {
+          form
+            .animate({ left: "-3em" }, 50)
+            .animate({ left: "3em" }, 100)
+            .animate({ left: "0" }, 50);
+        } else {
+          submit.attr("value", "Sending...").css({
+            boxShadow: "0 0 200em 200em rgba(225, 225, 225, 0.6)",
+            backgroundColor: "#ccc",
+          });
+          // simulate AJAX response
+          setTimeout(function () {
+            // step 1: slide labels and inputs
+            // when AJAX responds with success
+            // no animation for AJAX failure yet
+            form
+              .find("label")
+              .animate({ left: "100%" }, 500)
+              .animate({ opacity: "0" }, 500);
+          }, 1000);
+          setTimeout(function () {
+            // step 2: show thank you message after step 1
+            submit.attr("value", "Thank you :)").css({ boxShadow: "none" });
+          }, 2000);
+          setTimeout(function () {
+            // step 3: reset
+            form.find("input, textarea").val("");
+            form
+              .find("label")
+              .css({ left: "0" })
+              .animate({ opacity: "1" }, 500);
+            submit.attr("value", "Send").css({ backgroundColor: "" });
+          }, 4000);
+        }
+      });
+    </script>
+  </body>
+</html>
