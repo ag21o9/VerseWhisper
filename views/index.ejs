@@ -3,30 +3,114 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ShayariCodecs</title>
-    <link rel="stylesheet" href="../stylesheets/style.css" />
+    <title>Two-Liner Poem Website</title>
+    <style>
+      footer {
+        background-color: #f8f9fa;
+        padding: 30px 0;
+        text-align: center;
+        position:fixed;
+        bottom: 0;
+        width: 100%;
+      }
+
+      .footer-content {
+        color: #333;
+      }
+
+      .heart {
+        color: red;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f0f8ff;
+        margin: 0;
+        color: #333;
+      }
+
+      .navbar {
+        background-color: #4caf50;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+      }
+
+      .navbar .nav-links {
+        display: flex;
+        gap: 15px;
+      }
+
+      .navbar a {
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+      }
+
+      .navbar a:hover {
+        text-decoration: underline;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .poem-card {
+        background-color: #e3f2fd;
+        padding: 20px;
+        margin: 10px 0;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .poem-card .poem {
+        font-size: 18px;
+        line-height: 1.5;
+        margin: 10px 0;
+      }
+
+      .poem-card .author {
+        font-size: 14px;
+        color: #555;
+        text-align: right;
+      }
+    </style>
   </head>
   <body>
-    <footer>
-      <h1>Welcome to Shayari Codecs</h1>
-      <form method="get" action="/createdb">
-        <button type="submit">Create Blog</button>
-      </form>
-    </footer>
-    <div class="blogbox">
+    <div class="navbar">
+      <div class="logo">
+        <a href="#">WhisperVerse</a>
+      </div>
+      <div class="nav-links">
+        <a href="/createdb">Create Blog</a>
+        <a href="/logout">Logout</a>
+        <form action="/logout" method="post"></form>
+        <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+        <a href="https://twitter.com" target="_blank">Twitter</a>
+      </div>
+    </div>
+
+    <div class="container">
       <% blogs.forEach((value)=>{ %>
-      <div class="blog">
-        <div style="background-color: aqua" class="contentbox">
-          TITLE : <%= value.topic %>
-        </div>
-        <div style="background-color: burlywood" class="contentbox">
-          DESCRIPTION : <%= value.desc %>
-        </div>
-        <div class="contentbox">
-          <a href="/getblog/<%=value.id%>">Click to show more</a>
-        </div>
+      <div class="poem-card">
+        <div class="poem"><%= value.desc %></div>
+        <div class="author"><%= value.username %></div>
+        <div class="author"><%= value.email%></div>
       </div>
       <% }) %>
     </div>
+    <footer>
+      <div class="footer-content">
+        <p>Designed <span class="heart"></span> by Abhijeet</p>
+        <p>&copy; 2024. All rights reserved.</p>
+      </div>
+    </footer>
   </body>
 </html>

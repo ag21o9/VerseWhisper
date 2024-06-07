@@ -2,37 +2,34 @@ const express = require("express");
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const poeticModel = require('../models/poeticModel');
+const userModel = require('../models/userModel');
 function issigned(req, res, next) {
 
     const token = req.cookies['token'];
     if(token){
         const decoded = jwt.verify(req.cookies['token'],process.env.SECRET_TOKEN);
         req.userinfo = decoded.user;
-        console.log("user verified");
+        // console.log("user verified");
         next();
     }
     else{
-        res.send('login first');
+        res.render('register');
     }
     
 }
 
-router.get("/", async (req, res) => {
+router.get("/",issigned, async (req, res) => {
 
     const blogs = await poeticModel.find();
-    // console.log(blogs[0].topic);
+    const user = await userModel.find();
     if(blogs[0]){
+        blogs.reverse();
         res.render("index", {
-          blogs: blogs,
-        });
+          blogs: blogs});
     }
     else{
-        res.send("NO Blogs currently")
+        res.redirect('/createdb')
     }
-});
-
-router.get("/getblog/:id", (req, res) => {
-  console.log(req.params.id);
 });
 
 router.get("/createdb", issigned, (req, res) => {
@@ -45,10 +42,11 @@ router.post("/create", issigned, async (req, res) => {
     const poem = await poeticModel.create({
         user_id : req.userinfo.id,
         topic : req.body.topic,
-        desc : shayari
+        desc : shayari,
+        username: req.userinfo.username,
+        email : req.userinfo.email
     })
-    console.log(poem);
-    res.render('success');
+    res.render('success',{success:['Post created','Your Post is successfully created']});
 });
 
 module.exports = router;

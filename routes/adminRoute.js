@@ -5,24 +5,29 @@ const jwt = require("jsonwebtoken");
 const bcpt = require("bcrypt");
 const asynchandler = require("express-async-handler");
 
-router.get("/create", (req, res) => {
+router.get("/register", (req, res) => {
   res.render("register");
 });
 
-router.post("/registeruser", async (req, res) => {
+router.post("/register", async (req, res) => {
   let { username, email, password } = req.body;
-  if (!username || !email || !password) {
-    throw new Error("ALL FIELDS ARE MANDATORY");
-  }
-  const hashedpass = await bcpt.hash(password, 10);
-  const user = await userModel.create({
-    username,
-    email,
-    password: hashedpass,
-  });
-  res.json({ user });
 
-  // res.redirect('/login');
+  const available = await userModel.findOne({email});
+  if(available){
+    res.render('error');
+  }
+  else{
+    if (!username || !email || !password) {
+      throw new Error("ALL FIELDS ARE MANDATORY");
+    }
+    const hashedpass = await bcpt.hash(password, 10);
+    const user = await userModel.create({
+      username,
+      email,
+      password: hashedpass,
+    });
+    res.redirect("/login");
+  }
 });
 
 router.get("/login", (req, res) => {
@@ -34,9 +39,9 @@ router.get("/login", (req, res) => {
   }
 });
 
-router.post("/logout", (req, res) => {
+router.get("/logout", (req, res) => {
   res.clearCookie("token");
-  res.send("Cookie Deleted");
+  res.redirect("/");
 });
 
 router.get("/blog", (req, res) => {
@@ -44,7 +49,7 @@ router.get("/blog", (req, res) => {
 });
 
 router.post(
-  "/loginuser",
+  "/login",
   asynchandler(async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -63,7 +68,8 @@ router.post(
           process.env.SECRET_TOKEN
         );
         res.cookie("token", accesstoken);
-        res.json({ accesstoken });
+        // res.json({ accesstoken });
+        res.render('success',{success:['Logged in','Your Logged in successfully']});
       } else {
         throw new Error("Invalid Credentials");
       }

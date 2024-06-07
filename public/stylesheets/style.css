@@ -1,9 +1,8 @@
+
 body{
     background-color: antiquewhite;
 }
 footer{
-    flex-wrap: wrap;
-    display:flex;
     background-color: antiquewhite;
     justify-content: center;
 }

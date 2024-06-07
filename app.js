@@ -18,10 +18,10 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/", mainRoute);
-app.use("/register", adminRoute);
+app.use("/", adminRoute);
 
 app.use((err, req, res, next) => {
-  res.send(err.message);
+  res.render("error",{error:err});
 });
 
 app.listen(port, () => {

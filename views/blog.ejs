@@ -7,35 +7,60 @@
     <link rel="stylesheet" href="../stylesheets/style2.css" />
   </head>
   <body>
-    <div class="container" style="display: flex; margin-top: 180px;">
+    <div class="container" style="display: flex; margin-top: 180px">
       <section id="contact-form">
         <h2>Write Your Shayari</h2>
-        <form id="contact" name="shayari" accept-charset="utf-8" method="post" action="/create">
+        <form
+          id="contact"
+          name="shayari"
+          accept-charset="utf-8"
+          method="post"
+          action="/create"
+          onsubmit="checksub"
+        >
           <label
-            ><span>Name</span><input name="name" type="text" placeholder="Name"
+            ><span>Name</span
+            ><input name="name" type="text" placeholder="Name" required
           /></label>
           <label
             ><span>Topic</span
-            ><input name="topic" type="text" placeholder="Topic"
+            ><input
+              name="topic"
+              class="tpc"
+              type="text"
+              placeholder="Topic"
+              required
           /></label>
           <label
             ><span>Shayari</span
-            ><textarea name="shayari" placeholder="Shayari"></textarea>
+            ><textarea name="shayari" placeholder="Shayari" required></textarea>
           </label>
           <input name="submit" type="submit" value="Send" />
         </form>
         <aside>
           <p>
-            Just hit Send on an empty form to see the invalid input animation
+            In the world of bytes and code, Where stories of tech unfold,
+            Techies Shayari, our pride, With every rhyme, let’s ride!
           </p>
           <p>
-            Fill in the form fields to see the success animation (no real
-            validation, any random input will do)
+            Techies Shayari, oh so fine, Coding dreams in every line, In the
+            land where tech meets art, Every verse, a work of heart!
           </p>
         </aside>
       </section>
     </div>
     <script>
+      function checksub() {
+        // const name = document.querySelector('input');
+        const topic = document.querySelector(".tpc").value;
+        if (topic == "") {
+          alert("Abe bsdk poora value daal na");
+          return false;
+        }
+        return true;
+        // const desc = document.querySelector('input');
+      }
+
       var form = $("#contact"),
         submit = form.find('[name="submit"]');
 
