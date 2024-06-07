@@ -3,16 +3,16 @@ var mongoose = require('mongoose');
 
 const poemSchema = mongoose.Schema({
     user_id : {
-        typeof : mongoose.Schema.ObjectId.Types.ObjectId,
+        type : mongoose.Schema.Types.ObjectId,
         required : [true],
         ref : "users"
     },
-    email : {
-        typeof : String,
+    topic : {
+        type : String,
         required : [true],
-        unique : [true]
     },
-    password:{
+    desc:{
+        type : String,
         required : true,
     }
 },{

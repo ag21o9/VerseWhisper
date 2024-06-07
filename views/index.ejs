@@ -9,12 +9,15 @@
   <body>
     <footer>
       <h1>Welcome to Shayari Codecs</h1>
+      <form method="get" action="/createdb">
+        <button type="submit">Create Blog</button>
+      </form>
     </footer>
     <div class="blogbox">
       <% blogs.forEach((value)=>{ %>
       <div class="blog">
         <div style="background-color: aqua" class="contentbox">
-          TITLE : <%= value.title %>
+          TITLE : <%= value.topic %>
         </div>
         <div style="background-color: burlywood" class="contentbox">
           DESCRIPTION : <%= value.desc %>

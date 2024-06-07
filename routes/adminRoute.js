@@ -28,7 +28,7 @@ router.post("/registeruser", async (req, res) => {
 router.get("/login", (req, res) => {
   const token = req.cookies["token"];
   if (token) {
-    res.redirect("/blog");
+    res.redirect("/");
   } else {
     res.render("login");
   }
