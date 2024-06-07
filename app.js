@@ -24,6 +24,8 @@ app.use((err, req, res, next) => {
   res.render("error",{error:err});
 });
 
-app.listen(port, () => {
-  console.log("App listening on port " + port);
-});
+// app.listen(port, () => {
+//   console.log("App listening on port " + port);
+// });
+
+module.exports = app;
