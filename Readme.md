@@ -70,5 +70,5 @@ For any inquiries or questions, please reach out to the project maintainer:
 
 Name: Abhijeet Gupta
 Email: ag21210909@gmail.com
-GitHub: ag21o09
+GitHub: ag21o9
 
